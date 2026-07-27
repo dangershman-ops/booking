@@ -78,6 +78,11 @@
           </div>
         </div>
 
+        <div style="margin-bottom:16px;">
+          <div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.16em; color:#86948a; margin-bottom:8px;">Phone number</div>
+          <input type="tel" value="{{ phone }}" onChange="{{ onPhoneChange }}" placeholder="(555) 000-0000" style="width:100%; box-sizing:border-box; background:#171c1f; border:1px solid rgba(134,148,138,0.20); border-radius:12px; padding:12px 14px; color:#dfe3e7; font-family:'Inter'; font-size:14px;" />
+        </div>
+
         <div style="margin-bottom:28px;">
           <div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.16em; color:#86948a; margin-bottom:8px;">What do you want to cover? <span style="text-transform:none; letter-spacing:0; color:#5a655f;">(optional)</span></div>
           <textarea value="{{ note }}" onChange="{{ onNoteChange }}" placeholder="e.g. pricing, install, comparing to a home gym" rows="3" style="width:100%; box-sizing:border-box; background:#171c1f; border:1px solid rgba(134,148,138,0.20); border-radius:12px; padding:12px 14px; color:#dfe3e7; font-family:'Inter'; font-size:14px; resize:vertical;"></textarea>
@@ -135,6 +140,7 @@ class Component extends DCLogic {
     time: null,
     name: '',
     email: '',
+    phone: '',
     note: '',
     submitted: false,
   };
@@ -175,13 +181,14 @@ class Component extends DCLogic {
       ? WEEKDAYS[selectedDay.getDay()] + ', ' + MONTHS[selectedDay.getMonth()] + ' ' + selectedDay.getDate()
       : '';
     const summaryLine = this.state.time ? (this.state.duration + ' min · ' + dayLabel + ' at ' + this.state.time) : '';
-    const canConfirm = !!(this.state.time && this.state.name.trim() && this.state.email.trim());
+    const canConfirm = !!(this.state.time && this.state.name.trim() && this.state.email.trim() && this.state.phone.trim());
 
     return {
       days: dayItems,
       times: timeItems,
       name: this.state.name,
       email: this.state.email,
+      phone: this.state.phone,
       note: this.state.note,
       submitted: this.state.submitted,
       summaryLine,
@@ -191,6 +198,7 @@ class Component extends DCLogic {
       setDuration30: () => this.setState({ duration: 30 }),
       onNameChange: (e) => this.setState({ name: e.target.value }),
       onEmailChange: (e) => this.setState({ email: e.target.value }),
+      onPhoneChange: (e) => this.setState({ phone: e.target.value }),
       onNoteChange: (e) => this.setState({ note: e.target.value }),
       confirmDisabled: !canConfirm,
       confirmButtonStyle: 'width:100%; padding:16px; border-radius:999px; border:none; font-family:Inter; font-weight:800; font-size:15px; cursor:' + (canConfirm ? 'pointer' : 'not-allowed') + '; background:' + (canConfirm ? 'linear-gradient(135deg,#51dea2,#26bf86)' : '#262b2e') + '; color:' + (canConfirm ? '#0a0f12' : '#5a655f') + ';',
@@ -202,13 +210,14 @@ class Component extends DCLogic {
           'Requested time: ' + dayLabel + ' at ' + this.state.time + '\n' +
           'Name: ' + this.state.name + '\n' +
           'Email: ' + this.state.email + '\n' +
+          'Phone: ' + this.state.phone + '\n' +
           (this.state.note.trim() ? ('Notes: ' + this.state.note + '\n') : '') +
           '\nLooking forward to it.'
         );
         window.location.href = 'mailto:james.bicca@tonal.com?subject=' + subject + '&body=' + body;
         this.setState({ submitted: true });
       },
-      reset: () => this.setState({ submitted: false, time: null, name: '', email: '', note: '' }),
+      reset: () => this.setState({ submitted: false, time: null, name: '', email: '', phone: '', note: '' }),
     };
   }
 }
