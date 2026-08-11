@@ -174,8 +174,14 @@ function toggleSignup() {
 const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzNjeMTUPT9f4VRebWK8P41KIsOI4iZKftJgfMY8Hj-T3lmru3TMWVf98Smaa5G9AmTJA/exec';
 const VIRTUAL_URL = 'https://tonal.com/pages/virtual-demo-booking?srsltid=AfmBOorgDsIMzS6tTKzA1zUzz2f8VGrma8VWpWu5gAnY__cfyBDCN_hD';
 
+let geoLocation = '';
+fetch('https://ipapi.co/json/')
+  .then(r => r.json())
+  .then(d => { geoLocation = [d.city, d.region, d.country_name].filter(Boolean).join(', '); })
+  .catch(() => {});
+
 function sheetFetch(params) {
-  const qs = Object.entries({...params, page: window.location.href})
+  const qs = Object.entries({...params, page: window.location.href, location: geoLocation})
     .map(([k,v]) => encodeURIComponent(k) + '=' + encodeURIComponent(v)).join('&');
   return fetch(SHEET_URL + '?' + qs, { mode: 'no-cors' });
 }
