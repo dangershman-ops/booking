@@ -147,21 +147,23 @@ function toggleSignup() {
   if (!open) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+const SHEET_URL = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+
 function submitSignup() {
   const name = document.getElementById('s-name').value.trim();
   const email = document.getElementById('s-email').value.trim();
   const phone = document.getElementById('s-phone').value.trim();
   if (!name || !email) { alert('Please enter your name and email.'); return; }
-  const subject = encodeURIComponent('Tonal Info Request - ' + name);
-  const body = encodeURIComponent(
-    'Hi James,\n\n' + name + ' would like to learn more about Tonal.\n\n' +
-    'Email: ' + email + '\n' +
-    (phone ? 'Phone: ' + phone + '\n' : '') +
-    '\nPlease follow up with them directly.'
-  );
-  window.location.href = 'mailto:james.bicca@tonal.com?subject=' + subject + '&body=' + body;
-  document.getElementById('signup-form').style.display = 'none';
-  document.getElementById('signup-thanks').style.display = 'block';
+  const btn = document.querySelector('#signup-form .signup-btn');
+  btn.textContent = 'Submitting…'; btn.disabled = true;
+  const url = SHEET_URL + '?name=' + encodeURIComponent(name) +
+    '&email=' + encodeURIComponent(email) +
+    '&phone=' + encodeURIComponent(phone) +
+    '&source=landing';
+  fetch(url, { mode: 'no-cors' }).finally(() => {
+    document.getElementById('signup-form').style.display = 'none';
+    document.getElementById('signup-thanks').style.display = 'block';
+  });
 }
 </script>
 </body>
