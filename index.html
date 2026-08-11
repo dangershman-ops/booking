@@ -120,7 +120,6 @@
             <input id="s-phone" class="signup-input" type="tel" placeholder="Phone (optional)">
             <button class="signup-btn" onclick="submitSignup()">Send me more info →</button>
           </div>
-          <div style="font-size:11px; color:#5a655f; margin-top:10px;">Opens your email app pre-filled to james.bicca@tonal.com.</div>
         </div>
       </div>
     </div>
@@ -147,7 +146,7 @@ function toggleSignup() {
   if (!open) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-const SHEET_URL = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzNjeMTUPT9f4VRebWK8P41KIsOI4iZKftJgfMY8Hj-T3lmru3TMWVf98Smaa5G9AmTJA/exec';
 
 function submitSignup() {
   const name = document.getElementById('s-name').value.trim();
