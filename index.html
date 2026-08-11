@@ -3,164 +3,98 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
 <script data-goatcounter="https://dang23.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #0f1417; font-family: 'Inter', system-ui, sans-serif; color: #dfe3e7; }
+  a { color: inherit; text-decoration: none; }
+
+  .card {
+    background: rgba(23,28,31,0.86);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(134,148,138,0.20);
+    border-radius: 24px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: pointer;
+  }
+  .card:hover { border-color: rgba(81,222,162,0.45); transform: translateY(-2px); }
+  .card-icon { font-size: 28px; }
+  .card-title { font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 22px; color: #f3fbff; }
+  .card-desc { font-size: 14px; color: #86948a; line-height: 1.5; flex: 1; }
+  .card-cta { font-size: 13px; font-weight: 700; color: #51dea2; margin-top: 4px; }
+
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+
+  #calendly-section { display: none; margin-top: 32px; }
+</style>
 </head>
 <body>
-<x-dc>
-<helmet>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body { margin: 0; background: #0f1417; background-attachment: fixed; }
-    a { color: #51dea2; }
-    a:hover { color: #71fbbd; }
-    ::placeholder { color: #86948a; }
-    input:focus, textarea:focus { outline: none; border-color: rgba(81,222,162,0.55) !important; }
-  </style>
-</helmet>
-
-<div style="min-height:100vh; width:100%; background:radial-gradient(700px 500px at 90% -10%, rgba(81,222,162,0.16), transparent 60%), radial-gradient(600px 450px at -10% 0%, rgba(81,222,162,0.10), transparent 60%), #0f1417; font-family:'Inter',system-ui,sans-serif; color:#dfe3e7; padding-bottom:80px;">
+<div style="min-height:100vh; width:100%; background:radial-gradient(700px 500px at 90% -10%, rgba(81,222,162,0.16), transparent 60%), radial-gradient(600px 450px at -10% 0%, rgba(81,222,162,0.10), transparent 60%), #0f1417; padding-bottom:80px;">
 
   <div style="position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:18px 40px; background:rgba(23,28,31,0.86); backdrop-filter:blur(20px); border-bottom:1px solid rgba(134,148,138,0.20);">
     <div style="font-family:'Big Shoulders Display',sans-serif; font-weight:800; font-size:22px; letter-spacing:0.01em; color:#f3fbff;">TONAL</div>
-    <div style="font-family:'Inter'; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.14em; color:#86948a;">Demo Booking</div>
+    <div style="font-family:'Inter'; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.14em; color:#86948a;">Short Hills</div>
   </div>
 
-  <div style="max-width:920px; margin:0 auto; padding:56px 24px 0;">
-    <div style="font-family:'Inter'; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.18em; color:#51dea2; margin-bottom:14px;">BOOK A DEMO</div>
-    <h1 style="font-family:'Big Shoulders Display',sans-serif; font-weight:800; font-size:clamp(36px,5vw,58px); letter-spacing:0.005em; line-height:1.02; color:#f3fbff; margin:0 0 14px;">See Tonal in your home.</h1>
-    <p style="font-size:16px; color:#bbcabf; line-height:1.5; max-width:560px; margin:0 0 28px;">15–30 minutes with James Bicca. Bring your questions - leave with a plan.</p>
+  <div style="max-width:860px; margin:0 auto; padding:64px 24px 0;">
 
-    <!-- Calendly inline widget begin -->
-    <div class="calendly-inline-widget" data-url="https://calendly.com/dan-gershman-tonal/30min?text_color=ffffff" style="min-width:320px;height:700px;margin-bottom:32px;"></div>
-    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-    <!-- Calendly inline widget end -->
+    <div style="font-family:'Inter'; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.18em; color:#51dea2; margin-bottom:16px;">THE MALL AT SHORT HILLS</div>
+    <h1 style="font-family:'Big Shoulders Display',sans-serif; font-weight:800; font-size:clamp(40px,6vw,64px); letter-spacing:0.005em; line-height:1.02; color:#f3fbff; margin:0 0 16px;">Experience the World's Most Intelligent Gym.</h1>
+    <p style="font-size:17px; color:#bbcabf; line-height:1.55; max-width:580px; margin:0 0 48px;">Try it in person, schedule a live demo, or connect with a Tonal expert virtually — whatever works for you.</p>
 
-    <div style="margin-top:8px; padding-top:24px; border-top:1px solid rgba(134,148,138,0.20);">
-      <div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.16em; color:#86948a; margin-bottom:12px;">Prefer a virtual demo?</div>
-      <a href="https://tonal.com/pages/virtual-demo-booking?srsltid=AfmBOorgDsIMzS6tTKzA1zUzz2f8VGrma8VWpWu5gAnY__cfyBDCN_hD" target="_blank" style="display:inline-block; background:transparent; border:1px solid rgba(81,222,162,0.4); color:#51dea2; font-family:'Inter',sans-serif; font-weight:700; font-size:14px; padding:12px 24px; border-radius:999px; text-decoration:none;">Book a virtual demo →</a>
+    <div class="grid">
+
+      <!-- Learn More -->
+      <a href="https://www.tonal.com" target="_blank" class="card">
+        <div class="card-icon">✦</div>
+        <div class="card-title">Learn More About Tonal</div>
+        <div class="card-desc">Explore the technology, training programs, and what makes Tonal unlike anything else.</div>
+        <div class="card-cta">Visit tonal.com →</div>
+      </a>
+
+      <!-- Book In-Person -->
+      <div class="card" onclick="toggleCalendly()">
+        <div class="card-icon">🏋️</div>
+        <div class="card-title">Book a Live Demo</div>
+        <div class="card-desc">Come try Tonal in person at Short Hills with a specialist by your side.</div>
+        <div class="card-cta" id="inperson-cta">Schedule now →</div>
+      </div>
+
+      <!-- Book Virtual -->
+      <a href="https://tonal.com/pages/virtual-demo-booking?srsltid=AfmBOorgDsIMzS6tTKzA1zUzz2f8VGrma8VWpWu5gAnY__cfyBDCN_hD" target="_blank" class="card">
+        <div class="card-icon">💻</div>
+        <div class="card-title">Book a Virtual Demo</div>
+        <div class="card-desc">Connect with a Tonal expert from home — see it in action without leaving your couch.</div>
+        <div class="card-cta">Book online →</div>
+      </a>
+
     </div>
+
+    <!-- Calendly (expands on click) -->
+    <div id="calendly-section">
+      <div class="calendly-inline-widget" data-url="https://calendly.com/dan-gershman-tonal/30min?text_color=ffffff" style="min-width:320px;height:700px;"></div>
+      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    </div>
+
   </div>
 </div>
 
-</x-dc>
-<script type="text/x-dc" data-dc-script>
-const WEEKDAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const TIME_SLOTS = ['9:00 AM','11:00 AM','1:00 PM','3:00 PM','5:00 PM'];
-
-function pillStyle(active) {
-  return 'padding:10px 20px; border-radius:999px; font-family:Inter; font-weight:700; font-size:14px; cursor:pointer; border:1px solid ' +
-    (active ? 'rgba(81,222,162,0.55)' : 'rgba(134,148,138,0.24)') +
-    '; background:' + (active ? 'rgba(81,222,162,0.16)' : '#171c1f') +
-    '; color:' + (active ? '#71fbbd' : '#bbcabf') + ';';
-}
-function dayStyle(active) {
-  return 'padding:10px 16px; border-radius:14px; text-align:center; min-width:64px; cursor:pointer; border:1px solid ' +
-    (active ? 'rgba(81,222,162,0.55)' : 'rgba(134,148,138,0.24)') +
-    '; background:' + (active ? 'rgba(81,222,162,0.16)' : '#171c1f') +
-    '; color:' + (active ? '#71fbbd' : '#bbcabf') + ';';
-}
-function slotStyle(active) {
-  return 'padding:12px 10px; border-radius:12px; text-align:center; cursor:pointer; font-family:Inter; font-weight:600; font-size:13px; border:1px solid ' +
-    (active ? 'rgba(81,222,162,0.55)' : 'rgba(134,148,138,0.24)') +
-    '; background:' + (active ? 'rgba(81,222,162,0.16)' : '#171c1f') +
-    '; color:' + (active ? '#71fbbd' : '#bbcabf') + ';';
-}
-
-class Component extends DCLogic {
-  state = {
-    duration: 30,
-    dayIdx: 0,
-    time: null,
-    name: '',
-    email: '',
-    phone: '',
-    note: '',
-    submitted: false,
-    showVirtual: false,
-  };
-
-  buildDays() {
-    const out = [];
-    const today = new Date();
-    let d = new Date(today);
-    d.setDate(d.getDate() + 1);
-    while (out.length < 5) {
-      if (d.getDay() !== 0 && d.getDay() !== 6) {
-        out.push(new Date(d));
-      }
-      d.setDate(d.getDate() + 1);
-    }
-    return out;
-  }
-
-  renderVals() {
-    const days = this.buildDays();
-    const dayIdx = this.state.dayIdx;
-    const selectedDay = days[dayIdx];
-
-    const dayItems = days.map((d, i) => ({
-      weekday: WEEKDAYS[d.getDay()],
-      label: MONTHS[d.getMonth()] + ' ' + d.getDate(),
-      style: dayStyle(i === dayIdx),
-      select: () => this.setState({ dayIdx: i, time: null }),
-    }));
-
-    const timeItems = TIME_SLOTS.map((t) => ({
-      label: t,
-      style: slotStyle(this.state.time === t),
-      select: () => this.setState({ time: t }),
-    }));
-
-    const dayLabel = selectedDay
-      ? WEEKDAYS[selectedDay.getDay()] + ', ' + MONTHS[selectedDay.getMonth()] + ' ' + selectedDay.getDate()
-      : '';
-    const summaryLine = this.state.time ? (this.state.duration + ' min · ' + dayLabel + ' at ' + this.state.time) : '';
-    const canConfirm = !!(this.state.time && this.state.name.trim() && this.state.email.trim() && this.state.phone.trim());
-
-    return {
-      days: dayItems,
-      times: timeItems,
-      name: this.state.name,
-      email: this.state.email,
-      phone: this.state.phone,
-      note: this.state.note,
-      submitted: this.state.submitted,
-      summaryLine,
-      dur15Style: pillStyle(this.state.duration === 15),
-      dur30Style: pillStyle(this.state.duration === 30),
-      setDuration15: () => this.setState({ duration: 15 }),
-      setDuration30: () => this.setState({ duration: 30 }),
-      showVirtual: this.state.showVirtual,
-      toggleVirtual: () => this.setState({ showVirtual: !this.state.showVirtual }),
-      virtualArrow: 'display:inline-block; transition:transform 0.2s; transform:' + (this.state.showVirtual ? 'rotate(90deg)' : 'rotate(0deg)') + '; color:#51dea2;',
-      onNameChange: (e) => this.setState({ name: e.target.value }),
-      onEmailChange: (e) => this.setState({ email: e.target.value }),
-      onPhoneChange: (e) => this.setState({ phone: e.target.value }),
-      onNoteChange: (e) => this.setState({ note: e.target.value }),
-      confirmDisabled: !canConfirm,
-      confirmButtonStyle: 'width:100%; padding:16px; border-radius:999px; border:none; font-family:Inter; font-weight:800; font-size:15px; cursor:' + (canConfirm ? 'pointer' : 'not-allowed') + '; background:' + (canConfirm ? 'linear-gradient(135deg,#51dea2,#26bf86)' : '#262b2e') + '; color:' + (canConfirm ? '#0a0f12' : '#5a655f') + ';',
-      confirm: () => {
-        if (!canConfirm) return;
-        const subject = encodeURIComponent('Tonal Demo Request - ' + summaryLine);
-        const body = encodeURIComponent(
-          'Hi James,\n\nI would like to book a ' + this.state.duration + '-minute Tonal demo.\n\n' +
-          'Requested time: ' + dayLabel + ' at ' + this.state.time + '\n' +
-          'Name: ' + this.state.name + '\n' +
-          'Email: ' + this.state.email + '\n' +
-          'Phone: ' + this.state.phone + '\n' +
-          (this.state.note.trim() ? ('Notes: ' + this.state.note + '\n') : '') +
-          '\nLooking forward to it.'
-        );
-        window.location.href = 'mailto:james.bicca@tonal.com?subject=' + subject + '&body=' + body;
-        this.setState({ submitted: true });
-      },
-      reset: () => this.setState({ submitted: false, time: null, name: '', email: '', phone: '', note: '' }),
-    };
-  }
+<script>
+function toggleCalendly() {
+  const section = document.getElementById('calendly-section');
+  const cta = document.getElementById('inperson-cta');
+  const open = section.style.display === 'block';
+  section.style.display = open ? 'none' : 'block';
+  cta.textContent = open ? 'Schedule now →' : 'Hide ↑';
+  if (!open) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 </script>
 </body>
