@@ -105,10 +105,11 @@
     <div id="calendly-section">
       <div class="calendly-inline-widget" data-url="https://calendly.com/dan-gershman-tonal/30min?text_color=ffffff" style="min-width:320px;height:700px;"></div>
       <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      <button onclick="toggleCalendly()" style="margin-top:16px;background:transparent;border:1px solid rgba(134,148,138,.28);color:#86948a;font-family:'Inter',sans-serif;font-weight:600;font-size:13px;padding:10px 20px;border-radius:999px;cursor:pointer;">← Back to options</button>
     </div>
 
     <!-- Sign up form (expands on click) -->
-    <div id="signup-section">
+    <div id="signup-section" style="display:none; margin-top:24px;">
       <div style="background:rgba(23,28,31,0.86); backdrop-filter:blur(20px); border:1px solid rgba(134,148,138,0.20); border-radius:24px; padding:32px; max-width:480px;">
         <div id="signup-thanks" style="display:none; text-align:center; color:#71fbbd; font-weight:600; font-size:16px; padding:16px 0;">✓ Thanks! A Tonal rep will be in touch soon.</div>
         <div id="signup-form">
@@ -122,6 +123,7 @@
           </div>
         </div>
       </div>
+      <button onclick="toggleSignup()" style="margin-top:16px;background:transparent;border:1px solid rgba(134,148,138,.28);color:#86948a;font-family:'Inter',sans-serif;font-weight:600;font-size:13px;padding:10px 20px;border-radius:999px;cursor:pointer;">← Back to options</button>
     </div>
 
   </div>
