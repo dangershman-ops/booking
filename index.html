@@ -84,12 +84,12 @@
       </div>
 
       <!-- Book Virtual -->
-      <a href="https://tonal.com/pages/virtual-demo-booking?srsltid=AfmBOorgDsIMzS6tTKzA1zUzz2f8VGrma8VWpWu5gAnY__cfyBDCN_hD" target="_blank" class="card" onclick="track('book-virtual-demo')">
+      <div class="card" onclick="track('book-virtual-demo'); toggleVirtual()">
         <div class="card-icon">💻</div>
         <div class="card-title">Book a Virtual Demo</div>
         <div class="card-desc">Connect with a Tonal expert from home and see it in action.</div>
-        <div class="card-cta">Book online →</div>
-      </a>
+        <div class="card-cta" id="virtual-cta">Book online →</div>
+      </div>
 
       <!-- Stay in Touch -->
       <div class="card" onclick="track('stay-in-touch'); toggleSignup()">
@@ -106,6 +106,23 @@
       <div class="calendly-inline-widget" data-url="https://calendly.com/dan-gershman-tonal/30min?text_color=ffffff" style="min-width:320px;height:700px;"></div>
       <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
       <button onclick="toggleCalendly()" style="margin-top:16px;background:transparent;border:1px solid rgba(134,148,138,.28);color:#86948a;font-family:'Inter',sans-serif;font-weight:600;font-size:13px;padding:10px 20px;border-radius:999px;cursor:pointer;">← Back to options</button>
+    </div>
+
+    <!-- Virtual demo form (expands on click) -->
+    <div id="virtual-section" style="display:none; margin-top:24px;">
+      <div style="background:rgba(23,28,31,0.86); backdrop-filter:blur(20px); border:1px solid rgba(134,148,138,0.20); border-radius:24px; padding:32px; max-width:480px;">
+        <div id="virtual-thanks" style="display:none; text-align:center; color:#71fbbd; font-weight:600; font-size:16px; padding:16px 0;">✓ Got it! Taking you to booking now…</div>
+        <div id="virtual-form">
+          <div style="font-family:'Big Shoulders Display',sans-serif; font-weight:800; font-size:22px; color:#f3fbff; margin-bottom:8px;">Quick intro first</div>
+          <p style="font-size:14px; color:#86948a; margin:0 0 20px; line-height:1.5;">Share your details and we'll take you straight to booking.</p>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <input id="v-name" class="signup-input" type="text" placeholder="Your name">
+            <input id="v-email" class="signup-input" type="email" placeholder="your@email.com">
+            <button class="signup-btn" onclick="submitVirtual()">Continue to booking →</button>
+          </div>
+        </div>
+      </div>
+      <button onclick="toggleVirtual()" style="margin-top:16px;background:transparent;border:1px solid rgba(134,148,138,.28);color:#86948a;font-family:'Inter',sans-serif;font-weight:600;font-size:13px;padding:10px 20px;border-radius:999px;cursor:pointer;">← Back to options</button>
     </div>
 
     <!-- Sign up form (expands on click) -->
@@ -155,6 +172,35 @@ function toggleSignup() {
 }
 
 const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzNjeMTUPT9f4VRebWK8P41KIsOI4iZKftJgfMY8Hj-T3lmru3TMWVf98Smaa5G9AmTJA/exec';
+const VIRTUAL_URL = 'https://tonal.com/pages/virtual-demo-booking?srsltid=AfmBOorgDsIMzS6tTKzA1zUzz2f8VGrma8VWpWu5gAnY__cfyBDCN_hD';
+
+function sheetFetch(params) {
+  const qs = Object.entries({...params, page: window.location.href})
+    .map(([k,v]) => encodeURIComponent(k) + '=' + encodeURIComponent(v)).join('&');
+  return fetch(SHEET_URL + '?' + qs, { mode: 'no-cors' });
+}
+
+function toggleVirtual() {
+  const section = document.getElementById('virtual-section');
+  const cta = document.getElementById('virtual-cta');
+  const open = section.style.display === 'block';
+  section.style.display = open ? 'none' : 'block';
+  cta.textContent = open ? 'Book online →' : 'Hide ↑';
+  if (!open) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function submitVirtual() {
+  const name = document.getElementById('v-name').value.trim();
+  const email = document.getElementById('v-email').value.trim();
+  if (!name || !email) { alert('Please enter your name and email.'); return; }
+  const btn = document.querySelector('#virtual-form .signup-btn');
+  btn.textContent = 'Submitting…'; btn.disabled = true;
+  sheetFetch({ name, email, source: 'virtual-demo' }).finally(() => {
+    document.getElementById('virtual-form').style.display = 'none';
+    document.getElementById('virtual-thanks').style.display = 'block';
+    setTimeout(() => { window.open(VIRTUAL_URL, '_blank'); }, 1200);
+  });
+}
 
 function submitSignup() {
   const name = document.getElementById('s-name').value.trim();
@@ -163,11 +209,7 @@ function submitSignup() {
   if (!name || !email) { alert('Please enter your name and email.'); return; }
   const btn = document.querySelector('#signup-form .signup-btn');
   btn.textContent = 'Submitting…'; btn.disabled = true;
-  const url = SHEET_URL + '?name=' + encodeURIComponent(name) +
-    '&email=' + encodeURIComponent(email) +
-    '&phone=' + encodeURIComponent(phone) +
-    '&source=landing';
-  fetch(url, { mode: 'no-cors' }).finally(() => {
+  sheetFetch({ name, email, phone, source: 'stay-in-touch' }).finally(() => {
     document.getElementById('signup-form').style.display = 'none';
     document.getElementById('signup-thanks').style.display = 'block';
   });
