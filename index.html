@@ -30,10 +30,25 @@
   .card-desc { font-size: 14px; color: #86948a; line-height: 1.5; flex: 1; }
   .card-cta { font-size: 13px; font-weight: 700; color: #51dea2; margin-top: 4px; }
 
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (min-width: 860px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 500px) { .grid { grid-template-columns: 1fr; } }
 
   #calendly-section { display: none; margin-top: 32px; }
+  #signup-section { display: none; margin-top: 24px; }
+
+  .signup-input {
+    width: 100%; background: rgba(15,20,23,0.9); border: 1px solid rgba(134,148,138,0.22);
+    border-radius: 12px; padding: 12px 14px; color: #dfe3e7; font-family: 'Inter', sans-serif;
+    font-size: 14px; outline: none; transition: border-color 0.2s;
+  }
+  .signup-input:focus { border-color: rgba(81,222,162,0.55); }
+  .signup-btn {
+    width: 100%; padding: 14px; border-radius: 999px; border: none;
+    background: linear-gradient(135deg,#51dea2,#26bf86); color: #0a0f12;
+    font-family: 'Inter', sans-serif; font-weight: 800; font-size: 15px; cursor: pointer;
+  }
+  .signup-btn:hover { filter: brightness(1.07); }
 </style>
 </head>
 <body>
@@ -44,27 +59,27 @@
     <div style="font-family:'Inter'; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.14em; color:#86948a;">Short Hills</div>
   </div>
 
-  <div style="max-width:860px; margin:0 auto; padding:64px 24px 0;">
+  <div style="max-width:1000px; margin:0 auto; padding:64px 24px 0;">
 
     <div style="font-family:'Inter'; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.18em; color:#51dea2; margin-bottom:16px;">THE MALL AT SHORT HILLS</div>
     <h1 style="font-family:'Big Shoulders Display',sans-serif; font-weight:800; font-size:clamp(40px,6vw,64px); letter-spacing:0.005em; line-height:1.02; color:#f3fbff; margin:0 0 16px;">Experience the World's Most Intelligent Gym.</h1>
-    <p style="font-size:17px; color:#bbcabf; line-height:1.55; max-width:580px; margin:0 0 48px;">Try it in person, schedule a live demo, or connect with a Tonal expert virtually — whatever works for you.</p>
+    <p style="font-size:17px; color:#bbcabf; line-height:1.55; max-width:580px; margin:0 0 48px;">Try it in person, schedule a live demo, or connect with a Tonal expert — whatever works for you.</p>
 
     <div class="grid">
 
       <!-- Learn More -->
-      <a href="https://www.tonal.com" target="_blank" class="card">
+      <a href="profiles.html" class="card">
         <div class="card-icon">✦</div>
         <div class="card-title">Learn More About Tonal</div>
-        <div class="card-desc">Explore the technology, training programs, and what makes Tonal unlike anything else.</div>
-        <div class="card-cta">Visit tonal.com →</div>
+        <div class="card-desc">Find your fit — explore personalized profiles and see how Tonal works for your lifestyle.</div>
+        <div class="card-cta">Find your profile →</div>
       </a>
 
       <!-- Book In-Person -->
       <div class="card" onclick="toggleCalendly()">
         <div class="card-icon">🏋️</div>
         <div class="card-title">Book a Live Demo</div>
-        <div class="card-desc">Come try Tonal in person at Short Hills with a specialist by your side.</div>
+        <div class="card-desc">Try Tonal in person at Short Hills with a specialist by your side.</div>
         <div class="card-cta" id="inperson-cta">Schedule now →</div>
       </div>
 
@@ -72,9 +87,17 @@
       <a href="https://tonal.com/pages/virtual-demo-booking?srsltid=AfmBOorgDsIMzS6tTKzA1zUzz2f8VGrma8VWpWu5gAnY__cfyBDCN_hD" target="_blank" class="card">
         <div class="card-icon">💻</div>
         <div class="card-title">Book a Virtual Demo</div>
-        <div class="card-desc">Connect with a Tonal expert from home — see it in action without leaving your couch.</div>
+        <div class="card-desc">Connect with a Tonal expert from home and see it in action.</div>
         <div class="card-cta">Book online →</div>
       </a>
+
+      <!-- Stay in Touch -->
+      <div class="card" onclick="toggleSignup()">
+        <div class="card-icon">✉️</div>
+        <div class="card-title">Stay in Touch</div>
+        <div class="card-desc">Sign up and have a Tonal rep follow up with personalized info.</div>
+        <div class="card-cta" id="signup-cta">Get in touch →</div>
+      </div>
 
     </div>
 
@@ -82,6 +105,24 @@
     <div id="calendly-section">
       <div class="calendly-inline-widget" data-url="https://calendly.com/dan-gershman-tonal/30min?text_color=ffffff" style="min-width:320px;height:700px;"></div>
       <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    </div>
+
+    <!-- Sign up form (expands on click) -->
+    <div id="signup-section">
+      <div style="background:rgba(23,28,31,0.86); backdrop-filter:blur(20px); border:1px solid rgba(134,148,138,0.20); border-radius:24px; padding:32px; max-width:480px;">
+        <div id="signup-thanks" style="display:none; text-align:center; color:#71fbbd; font-weight:600; font-size:16px; padding:16px 0;">✓ Thanks! A Tonal rep will be in touch soon.</div>
+        <div id="signup-form">
+          <div style="font-family:'Big Shoulders Display',sans-serif; font-weight:800; font-size:22px; color:#f3fbff; margin-bottom:8px;">Let's connect</div>
+          <p style="font-size:14px; color:#86948a; margin:0 0 20px; line-height:1.5;">Leave your details and a Tonal specialist will reach out with personalized info.</p>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <input id="s-name" class="signup-input" type="text" placeholder="Your name">
+            <input id="s-email" class="signup-input" type="email" placeholder="your@email.com">
+            <input id="s-phone" class="signup-input" type="tel" placeholder="Phone (optional)">
+            <button class="signup-btn" onclick="submitSignup()">Send me more info →</button>
+          </div>
+          <div style="font-size:11px; color:#5a655f; margin-top:10px;">Opens your email app pre-filled to james.bicca@tonal.com.</div>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -95,6 +136,32 @@ function toggleCalendly() {
   section.style.display = open ? 'none' : 'block';
   cta.textContent = open ? 'Schedule now →' : 'Hide ↑';
   if (!open) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function toggleSignup() {
+  const section = document.getElementById('signup-section');
+  const cta = document.getElementById('signup-cta');
+  const open = section.style.display === 'block';
+  section.style.display = open ? 'none' : 'block';
+  cta.textContent = open ? 'Get in touch →' : 'Hide ↑';
+  if (!open) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function submitSignup() {
+  const name = document.getElementById('s-name').value.trim();
+  const email = document.getElementById('s-email').value.trim();
+  const phone = document.getElementById('s-phone').value.trim();
+  if (!name || !email) { alert('Please enter your name and email.'); return; }
+  const subject = encodeURIComponent('Tonal Info Request - ' + name);
+  const body = encodeURIComponent(
+    'Hi James,\n\n' + name + ' would like to learn more about Tonal.\n\n' +
+    'Email: ' + email + '\n' +
+    (phone ? 'Phone: ' + phone + '\n' : '') +
+    '\nPlease follow up with them directly.'
+  );
+  window.location.href = 'mailto:james.bicca@tonal.com?subject=' + subject + '&body=' + body;
+  document.getElementById('signup-form').style.display = 'none';
+  document.getElementById('signup-thanks').style.display = 'block';
 }
 </script>
 </body>
