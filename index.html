@@ -31,8 +31,10 @@
   .card-cta { font-size: 13px; font-weight: 700; color: #51dea2; margin-top: 4px; }
 
   .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  @media (min-width: 860px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+  @media (min-width: 860px) { .grid { grid-template-columns: repeat(3, 1fr); } }
   @media (max-width: 500px) { .grid { grid-template-columns: 1fr; } }
+  .survey-opt { display:flex; align-items:center; gap:10px; background:#0f1417; border:1px solid rgba(134,148,138,.22); border-radius:12px; padding:12px 14px; cursor:pointer; transition:border-color .15s; text-align:left; width:100%; font-family:'Inter',sans-serif; color:#dfe3e7; font-size:14px; }
+  .survey-opt:hover, .survey-opt.selected { border-color:rgba(81,222,162,.55); background:rgba(81,222,162,.08); color:#71fbbd; }
 
   #calendly-section { display: none; margin-top: 32px; }
   #signup-section { display: none; margin-top: 24px; }
@@ -99,6 +101,14 @@
         <div class="card-cta" id="signup-cta">Get in touch →</div>
       </div>
 
+      <!-- Survey / $100 off -->
+      <div class="card" style="border-color:rgba(81,222,162,.35); background:rgba(81,222,162,.04);" onclick="track('survey'); toggleSurvey()">
+        <div class="card-icon">🎯</div>
+        <div class="card-title">Get $100 Off Tonal</div>
+        <div class="card-desc">Answer 2 quick questions and we'll match you with the perfect program — plus unlock an exclusive discount.</div>
+        <div class="card-cta" id="survey-cta" style="color:#51dea2;">Take the quiz →</div>
+      </div>
+
     </div>
 
     <!-- Calendly (expands on click) -->
@@ -123,6 +133,55 @@
         </div>
       </div>
       <button onclick="toggleVirtual()" style="margin-top:16px;background:transparent;border:1px solid rgba(134,148,138,.28);color:#86948a;font-family:'Inter',sans-serif;font-weight:600;font-size:13px;padding:10px 20px;border-radius:999px;cursor:pointer;">← Back to options</button>
+    </div>
+
+    <!-- Survey / $100 off -->
+    <div id="survey-section" style="display:none; margin-top:24px;">
+      <div style="background:rgba(23,28,31,0.86); backdrop-filter:blur(20px); border:1px solid rgba(81,222,162,.25); border-radius:24px; padding:32px; max-width:520px;">
+        <div id="survey-thanks" style="display:none; text-align:center; padding:16px 0;">
+          <div style="font-size:32px; margin-bottom:12px;">🎉</div>
+          <div id="survey-result" style="font-family:'Big Shoulders Display',sans-serif; font-weight:800; font-size:22px; color:#f3fbff; margin-bottom:8px;"></div>
+          <p style="font-size:14px; color:#bbcabf; margin:0 0 16px; line-height:1.5;">Your $100 discount is on its way — a Tonal specialist will be in touch with details and next steps.</p>
+        </div>
+        <div id="survey-form">
+          <div style="font-size:10px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:#51dea2; margin-bottom:12px;">2-minute quiz</div>
+          <div style="font-family:'Big Shoulders Display',sans-serif; font-weight:800; font-size:26px; color:#f3fbff; margin-bottom:6px;">Find your perfect Tonal program.</div>
+          <p style="font-size:14px; color:#86948a; margin:0 0 24px; line-height:1.5;">Answer two quick questions and we'll match you with the right fit — plus send you $100 off.</p>
+
+          <div style="margin-bottom:20px;">
+            <div style="font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#86948a; margin-bottom:10px;">What's your main goal?</div>
+            <div style="display:flex; flex-direction:column; gap:8px;" id="q1-opts">
+              <button class="survey-opt" onclick="selectQ(1,'Build strength & muscle','The Serious Lifter')">💪 Build strength &amp; muscle</button>
+              <button class="survey-opt" onclick="selectQ(1,'Lose weight & tone up','The Busy Professional')">🔥 Lose weight &amp; tone up</button>
+              <button class="survey-opt" onclick="selectQ(1,'Stay active & feel great as I age','The Active Ager')">🌿 Stay active &amp; feel great as I age</button>
+              <button class="survey-opt" onclick="selectQ(1,'Train like an athlete','The Athlete')">⚡ Train like an athlete</button>
+              <button class="survey-opt" onclick="selectQ(1,'Just getting started','The Beginner')">🌱 Just getting started</button>
+            </div>
+          </div>
+
+          <div style="margin-bottom:24px;">
+            <div style="font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#86948a; margin-bottom:10px;">How often do you currently work out?</div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;" id="q2-opts">
+              <button class="survey-opt" style="flex:1; min-width:120px;" onclick="selectQ(2,'Rarely or never','Rarely')">Rarely</button>
+              <button class="survey-opt" style="flex:1; min-width:120px;" onclick="selectQ(2,'1–2x a week','1–2x/week')">1–2x a week</button>
+              <button class="survey-opt" style="flex:1; min-width:120px;" onclick="selectQ(2,'3–4x a week','3–4x/week')">3–4x a week</button>
+              <button class="survey-opt" style="flex:1; min-width:120px;" onclick="selectQ(2,'5+ times a week','5+/week')">5+ times</button>
+            </div>
+          </div>
+
+          <div style="margin-bottom:20px;">
+            <div style="font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#86948a; margin-bottom:10px;">Your details</div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <input id="sv-name" class="signup-input" type="text" placeholder="Your name">
+              <input id="sv-email" class="signup-input" type="email" placeholder="your@email.com">
+            </div>
+          </div>
+
+          <button class="signup-btn" onclick="submitSurvey()" id="survey-btn" disabled style="opacity:.5;">Send my match &amp; discount →</button>
+          <div style="font-size:11px; color:#5a655f; margin-top:10px;">We'll send your $100 discount and program match — no spam, ever.</div>
+        </div>
+      </div>
+      <button onclick="toggleSurvey()" style="margin-top:16px;background:transparent;border:1px solid rgba(134,148,138,.28);color:#86948a;font-family:'Inter',sans-serif;font-weight:600;font-size:13px;padding:10px 20px;border-radius:999px;cursor:pointer;">← Back to options</button>
     </div>
 
     <!-- Sign up form (expands on click) -->
@@ -205,6 +264,45 @@ function submitVirtual() {
     document.getElementById('virtual-form').style.display = 'none';
     document.getElementById('virtual-thanks').style.display = 'block';
     setTimeout(() => { window.open(VIRTUAL_URL, '_blank'); }, 1200);
+  });
+}
+
+function toggleSurvey() {
+  const section = document.getElementById('survey-section');
+  const cta = document.getElementById('survey-cta');
+  const open = section.style.display === 'block';
+  section.style.display = open ? 'none' : 'block';
+  cta.textContent = open ? 'Take the quiz →' : 'Hide ↑';
+  if (!open) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+const surveyAnswers = { q1: '', q1label: '', q2: '', q2label: '' };
+
+function selectQ(q, val, label) {
+  if (q === 1) { surveyAnswers.q1 = val; surveyAnswers.q1label = label; }
+  if (q === 2) { surveyAnswers.q2 = val; surveyAnswers.q2label = label; }
+  const opts = document.querySelectorAll(`#q${q}-opts .survey-opt`);
+  opts.forEach(b => { b.classList.toggle('selected', b.textContent.trim().replace(/&amp;/g,'&') === val || b.textContent.trim() === val); });
+  const btn = document.getElementById('survey-btn');
+  if (surveyAnswers.q1 && surveyAnswers.q2) { btn.disabled = false; btn.style.opacity = '1'; }
+}
+
+function submitSurvey() {
+  const name = document.getElementById('sv-name').value.trim();
+  const email = document.getElementById('sv-email').value.trim();
+  if (!name || !email) { alert('Please enter your name and email.'); return; }
+  if (!surveyAnswers.q1 || !surveyAnswers.q2) { alert('Please answer both questions.'); return; }
+  const btn = document.getElementById('survey-btn');
+  btn.textContent = 'Submitting…'; btn.disabled = true;
+  sheetFetch({
+    name, email,
+    source: 'survey',
+    profile: surveyAnswers.q1label,
+    note: surveyAnswers.q1 + ' · ' + surveyAnswers.q2
+  }).finally(() => {
+    document.getElementById('survey-form').style.display = 'none';
+    document.getElementById('survey-result').textContent = 'Your match: ' + surveyAnswers.q1label;
+    document.getElementById('survey-thanks').style.display = 'block';
   });
 }
 
